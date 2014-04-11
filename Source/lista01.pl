@@ -1,3 +1,8 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Universidade Federal da Bahia%%
+%%%%%%%%Marino Hohenheim%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 %Questão 1
 %Escreva as cláusulas para concatenar duas listas.
 %a) Em PROLOG: concatenar(L1,L2,L3).
@@ -12,10 +17,6 @@ concatenar([X|R], L, [X|W]):-
 	concatenar(R, L, W).
 
 
-
-
-
-
 %Questão 2
 %Escreva as cláusulas para concatenar duas listas, sendo que a segunda lista vem na frente.
 %a) Em PROLOG: concatenarInv(L1,L2,L3). Neste caso dê exemplos das metas.
@@ -24,7 +25,9 @@ concatenar([X|R], L, [X|W]):-
 %Deve retornar:
 %L = [d,e,f,g,h,a,b,c].
 
-
+concatenarInv(L, [], L).
+concatenarInv(L1, L2, L3):-
+	concatenar(L2, L1, L3).
 
 
 
@@ -66,9 +69,9 @@ juntar([X|L1], [Y|L2], [X,Y|L3]):-
 %Deve retornar:
 %L = [a,b,c,z].
 
-
-
-
+adicionarFinal(X,[],[X]).
+adicionarFinal(X,[Y|L], [Y|W]):-
+	adicionarFinal(X, L, W).
 
 
 
@@ -80,8 +83,11 @@ juntar([X|L1], [Y|L2], [X,Y|L3]):-
 %Deve retornar:
 %L = [c,b,a].
 
-
-
+inverter([], []).
+inverter([X], [X]).
+inverter([X|R], L):-
+	inverter(R, W),
+	adicionarFinal(X, W, L).
 
 
 
