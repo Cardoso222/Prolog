@@ -99,14 +99,14 @@ inverter([X|R], L):-
 %?- parear(x,[a,b,c], LL).
 %Deve retornar:
 %LL = [[x,a],[x,b],[x,c]].
-%
-%
-%
-%
-%
-%
-%
-%
+
+parear(_, [], []):- !.
+%parear(X, [Y], [X,Y]):- !.
+parear(X, [Y|R], [[X,Y]|W]):-
+	parear(X, R, W).
+
+
+
 %Questão 8
 %Escreva as cláusulas pares que recebe um elemento uma lista L, e produz a lista de todos os pares de elementos de
 %L.
@@ -116,10 +116,11 @@ inverter([X|R], L):-
 %Deve retornar:
 %L = [[a, b], [a, c], [a, d], [b, c], [b, d], [c, d]].
 
-
-
-
-
+pares([], []):- !.
+pares([X|R], W):-
+	parear(X, R, LR),
+	pares(R, W1),
+	concatenar(LR, W1, W).
 
 
 %Questão 9– Difícil.
