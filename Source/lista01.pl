@@ -147,13 +147,17 @@ pares([X|R], W):-
 %X = c,
 %R = [a, b];
 %false.
-%
-%
-%
-%
-%
-%
-%
+
+permutar([],[]).
+permutar(L1, [X|W]):-
+	remova(X, L1, WT),
+	permutar(WT, W).
+
+
+remova(X,[X|T],T).
+remova(X,[H|T],[H|NT]):-
+	remova(X,T,NT).
+
 %Questão 10
 %Escreva as cláusulas que recebe uma lista e testa se ela tem elementos repetidos (pode ser interpretada como um conjunto). OBS: A expressão \+ faz a negação de uma cláusula.
 %a) Em PROLOG: conjunto(L).
@@ -162,6 +166,15 @@ pares([X|R], W):-
 %true.
 %?- conjunto([a,b,d,c,d]).
 %false.
+
+conjunto([]):- !.
+conjunto([_]):- !.
+conjunto([X,Y|R]):- X\==Y,
+	conjunto([X|R]),
+	conjunto([Y|R]).
+
+
+
 %Questão 11
 %Escreva as cláusulas que recebe duas listas e testa se a primeira é prefixo da segunda.
 %a) Em PROLOG: prefixo(L1,L2).
@@ -172,8 +185,10 @@ pares([X|R], W):-
 %false.
 
 
-
-
+prefixo([],[]).
+prefixo([], _).
+prefixo([X|L1], [Y|L2]):- X==Y, !,
+	prefixo(L1, L2).
 
 
 
@@ -185,3 +200,10 @@ pares([X|R], W):-
 %true .
 %?- subsequencia([a,b,c],[d,z,a,b,f,c,g]).
 %false
+
+subsequencia([],[]).
+subsequencia([], _).
+subsequencia(L1,L2):-
+	prefixo(L1,L2), !.
+subsequencia(L1,[_|R2]):-
+	subsequencia(L1, R2).
